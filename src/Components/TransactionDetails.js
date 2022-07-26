@@ -16,6 +16,12 @@ const TransactionDetails = () => {
         .catch(err => console.error(err))
     }, [index]);
 
+    const handleDelete = () => {
+        axios.delete(`${API}/transactions/${index}`)
+        .then(res => navigate("/transactions"))
+        .catch(err => console.error(err))
+    };
+
     return (
         <div>
             <p>{transaction.item_name}</p>
@@ -29,6 +35,7 @@ const TransactionDetails = () => {
             <Link to={`/transactions/${index}/edit`}>
             <button>Edit</button>
             </Link>
+            <button onClick={handleDelete}>Delete</button>
         </div>
     )
 };
