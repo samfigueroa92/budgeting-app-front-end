@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Button } from "react-bootstrap";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -23,21 +24,21 @@ const TransactionDetails = () => {
     };
 
     return (
-        <div>
-            <p>{transaction.item_name}</p>
-            <p>{transaction.amount}</p>
-            <p>{transaction.date}</p>
-            <p>{transaction.from}</p>
-            <p>{transaction.category}</p>
+        <div className="transaction-view">
+            <p>Transaction Name: {transaction.item_name}</p>
+            <p>Amount: $ {transaction.amount}</p>
+            <p>Date: {transaction.date}</p>
+            <p>From: {transaction.from}</p>
+            <p>Category: {transaction.category}</p>
             <Link to={"/transactions"}>
-            <button>Back</button>
+            <Button variant="dark" type="submit">Back</Button>
             </Link>
             <Link to={`/transactions/${index}/edit`}>
-            <button>Edit</button>
+            <Button variant="dark" type="submit">Edit</Button>
             </Link>
-            <button onClick={handleDelete}>Delete</button>
+            <Button variant="dark" type="submit" onClick={handleDelete}>Delete</Button>
         </div>
-    )
+    );
 };
 
 export default TransactionDetails;

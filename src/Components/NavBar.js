@@ -1,40 +1,24 @@
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
-
-const API = process.env.REACT_APP_API_URL;
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 const NavBar = () => {
-    const [transactions, setTransactions] = useState([]);
-
-    useEffect(() => {
-        axios.get(`${API}/transactions`)
-        .then(res => setTransactions(res.data))
-        .catch(err => console.error(err))
-    }, []);
-
-    const transactionTotal = () => {
-        let amounts = transactions.map(transaction => transaction.amount);
-        let positiveNum = amounts.filter(num => num > 0).reduce((a,b) => a + b, 0);
-        let negativeNum = amounts.filter(num => num < 0).reduce((a,b) => a + b, 0);
-        let sum = positiveNum + negativeNum;
-
-        return sum;
-    };
-
-    let total = transactionTotal();
-
     return (
-        <nav>
-            <p>${total}</p>
-            <button>
-                <Link to="/transactions">All Transactions</Link>
-            </button>
-            <button>
-                <Link to="/transactions/new">New Transaction</Link>
-            </button>
-        </nav>
-    )
-}
+        <>
+            <Container>
+                <Navbar bg="dark" variant="dark" >
+                    <Navbar.Brand href="/">Budget App</Navbar.Brand>
+                    <Nav >
+                        <Nav.Link href="/transactions">All Transactions</Nav.Link>
+                        <Nav.Link href="/transactions/new">New Transaction</Nav.Link>
+                    </Nav>
+                    <Navbar.Collapse className="justify-content-end">
+                        <Navbar.Text>Signed in as Guest</Navbar.Text>
+                    </Navbar.Collapse>
+                </Navbar>
+            </Container>
+        </>
+    );
+};
 
 export default NavBar;

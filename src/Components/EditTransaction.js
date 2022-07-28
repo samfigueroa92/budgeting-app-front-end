@@ -1,80 +1,106 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 const API = process.env.REACT_APP_API_URL;
 
 const EditTransaction = () => {
-    let { index } = useParams();
-    const navigate = useNavigate();
+  let { index } = useParams();
+  const navigate = useNavigate();
 
-    const [transaction, setTransaction] = useState({
-        item_name: "",
-        amount: 0,
-        date: "",
-        from: "",
-        category: "",
-    });
+  const [transaction, setTransaction] = useState({
+    item_name: "",
+    amount: 0,
+    date: "",
+    from: "",
+    category: "",
+  });
 
-    const handleInput = (e) => {
-        setTransaction({...transaction, [e.target.id]: e.target.value})
-    };
+  const handleInput = (e) => {
+    setTransaction({ ...transaction, [e.target.id]: e.target.value });
+  };
 
-    useEffect(() => { 
-        axios.get(`${API}/transactions/${index}`)
-        .then(res => setTransaction(res.data))
-        .catch(err => console.error(err))
-    }, [index]);
+  useEffect(() => {
+    axios
+      .get(`${API}/transactions/${index}`)
+      .then((res) => setTransaction(res.data))
+      .catch((err) => console.error(err));
+  }, [index]);
 
-    const editTransaction = () => {
-        axios.put(`${API}/transactions/${index}`, transaction)
-        .then(res => {
-            setTransaction(res.data)
-            navigate(`/transactions/${index}`)
-        })
-        .catch(err => console.error(err))
-    };
-    
-    const handleEdit = (e) => {
-        e.preventDefault();
-        editTransaction();
-    };
+  const editTransaction = () => {
+    axios
+      .put(`${API}/transactions/${index}`, transaction)
+      .then((res) => {
+        setTransaction(res.data);
+        navigate(`/transactions/${index}`);
+      })
+      .catch((err) => console.error(err));
+  };
 
-    return (
-        <div className="New Edit">
-            <form onSubmit={handleEdit} >
-                <label>
-                    Transaction Name:
-                    <input type="text" value={transaction.item_name} id="item_name" onChange={handleInput} />
-                </label>
-                <br />
-                <label>
-                    Amount:
-                    <input type="text" value={transaction.amount} id="amount" onChange={handleInput} />
-                </label>
-                <br />
-                <label>
-                    Date:
-                    <input type="text" value={transaction.date} id="date" onChange={handleInput} />
-                </label>
-                <br />
-                <label>
-                    From:
-                    <input type="text" value={transaction.from} id="from" onChange={handleInput} />
-                </label>
-                <br />
-                <label>
-                    Category:
-                    <input type="text" value={transaction.category} id="category" onChange={handleInput} />
-                </label>
-                <br/>
-                <input type="submit" />
-            </form>
-            <Link to={`/transactions/${index}`}>
-                <button>Back</button>
-            </Link>
-        </div>
-    );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    editTransaction();
+  };
+
+  return (
+    <div className="New-Edit">
+      <Container>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="item_name">
+            <Form.Label>Transaction Name</Form.Label>
+            <Form.Control
+              type="text"
+              value={transaction.item_name}
+              onChange={handleInput}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="amount">
+            <Form.Label>Amount</Form.Label>
+            <Form.Control
+              type="number"
+              value={transaction.amount}
+              onChange={handleInput}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="date">
+            <Form.Label>Date</Form.Label>
+            <Form.Control
+              type="text"
+              value={transaction.date}
+              onChange={handleInput}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="from">
+            <Form.Label>From</Form.Label>
+            <Form.Control
+              type="text"
+              value={transaction.from}
+              onChange={handleInput}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="category">
+            <Form.Label>Category</Form.Label>
+            <Form.Control
+              type="text"
+              value={transaction.category}
+              onChange={handleInput}
+            ></Form.Control>
+          </Form.Group>
+          <Button variant="dark" type="submit">
+            Submit
+          </Button>
+          <Link to={`/transactions/${index}`}>
+            <Button variant="dark" type="submit">
+              Back
+            </Button>
+          </Link>
+        </Form>
+      </Container>
+    </div>
+  );
 };
 
 export default EditTransaction;

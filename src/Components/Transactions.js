@@ -5,33 +5,46 @@ import axios from "axios";
 const API = process.env.REACT_APP_API_URL;
 
 const Transactions = () => {
-    const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState([]);
 
-    useEffect(() => {
-        axios.get(`${API}/transactions`)
-        .then(res => setTransactions(res.data))
-        .catch(err => console.error(err))
-    }, []);
+  useEffect(() => {
+    axios
+      .get(`${API}/transactions`)
+      .then((res) => setTransactions(res.data))
+      .catch((err) => console.error(err));
+  }, []);
 
-    const transactionTotal = () => {
-        let amounts = transactions.map(transaction => transaction.amount);
-        let positiveNum = amounts.filter(num => num > 0).reduce((a,b) => a + b, 0);
-        let negativeNum = amounts.filter(num => num < 0).reduce((a,b) => a + b, 0);
-        let sum = positiveNum + negativeNum;
+  const transactionTotal = () => {
+    let amounts = transactions.map((transaction) => transaction.amount);
+    let sum = amounts.reduce((a, b) => Number(a) + Number(b), 0)
 
-        return sum;
-    };
+    return sum;
+  };
 
-    let total = transactionTotal();
+  let total = transactionTotal();
 
-    return (
-        <div className="Transactions">
-            <h1>Bank Account Total: ${total}</h1>
+  let color = "neutral";
+
+  if(total >= 1000){
+    color = "green"
+  }else if(total < 0){
+    color = "red"
+  }
+
+  return (
+    <div>
+        <h1>Account Total: <span className={color}>${total}</span></h1>
             {transactions.map((transaction, index) => {
-                return <Transaction key={index} transaction={transaction} index={index}/>
+              return (
+                <Transaction
+                  key={index}
+                  transaction={transaction}
+                  index={index}
+                />
+              );
             })}
-        </div>
-    )
-}
+    </div>
+  );
+};
 
 export default Transactions;
