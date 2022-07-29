@@ -1,10 +1,23 @@
 import Table from "react-bootstrap/Table";
 import { Container } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const API = process.env.REACT_APP_API_URL;
 
 const Transaction = ({ transaction, index }) => {
+  const navigate = useNavigate();
+
+  const handleDelete = () => {
+    axios.delete(`${API}/transactions/${index}`)
+    .then(res => navigate("/"))
+    .catch(err => console.error(err))
+};
+
   return (
     <Container>
-    <Table striped bordered hover size="sm">
+    <Table striped bordered size="sm">
       <thead>
         <tr>
           <th>#</th>
@@ -17,11 +30,15 @@ const Transaction = ({ transaction, index }) => {
           <td>{transaction.date}</td>
           <td>
             <a href={`/transactions/${index}`}>
-              {transaction.item_name[0].toUpperCase() +
-                transaction.item_name.slice(1)}
+              {transaction.item_name}
             </a>
           </td>
           <td>$ {transaction.amount}</td>
+          <td>
+            <Button variant="dark" onClick={()=> navigate(`/transactions/${index}/edit`)}>Edit
+            </Button>
+          </td>
+          <td><Button variant="dark" onClick={handleDelete} >Delete</Button></td>
         </tr>
       </thead>
     </Table>

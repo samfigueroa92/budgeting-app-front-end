@@ -68,7 +68,7 @@ const EditTransaction = () => {
           <Form.Group className="mb-3" controlId="date">
             <Form.Label>Date</Form.Label>
             <Form.Control
-              type="text"
+              type="date"
               value={transaction.date}
               onChange={handleInput}
             ></Form.Control>

@@ -51,7 +51,7 @@ const NewTransaction = () => {
       </Form.Group>
             <Form.Group className="mb-3" controlId="item_name">
         <Form.Label>Date</Form.Label>
-        <Form.Control type="text" id="date" value={transaction.date} onChange={handleInput}/>
+        <Form.Control type="date" id="date" value={transaction.date} onChange={handleInput}/>
       </Form.Group>
             <Form.Group className="mb-3" controlId="from">
         <Form.Label>From</Form.Label>

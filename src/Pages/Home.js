@@ -23,9 +23,9 @@ const Home = () => {
           web developer in training with Pursuit, an intensive 12
           month software engineering fellowship with a 9% acceptance rate.
             </Card.Text>
-            <Button variant="dark">GitHub</Button>
-            <Button variant="dark">Email</Button>
-            <Button variant="dark">LinkedIn</Button>
+            <a href="https://github.com/samfigueroa92" target="_blank" rel="noopener noreferrer"><Button variant="dark">GitHub</Button></a>
+            <a href="mailto: samanthafigueroa@pursuit.org"><Button variant="dark">Email</Button></a>
+            <a href="https://www.linkedin.com/in/samantha-figueroa-b00336a4/" target="_blank" rel="noopener noreferrer"><Button variant="dark">LinkedIn</Button></a>
           </Card.Body>
         </Card>
       </Container>

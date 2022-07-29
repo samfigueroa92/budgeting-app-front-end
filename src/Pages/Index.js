@@ -1,10 +1,10 @@
 import Transactions from "../Components/Transactions";
 
-const Index = () => {
+const Index = ({transactions, total}) => {
     return (
         <div>
             <h1>All Transactions</h1>
-            <Transactions />
+            <Transactions transactions={transactions} total={total} />
         </div>
     )
 }
