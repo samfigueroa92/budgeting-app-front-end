@@ -4,7 +4,7 @@ import { Card } from "react-bootstrap";
 
 const Home = () => {
   return (
-    <div>
+    <div className="Home">
       <Container>
         <p>
           Welcome to my simple Budget App. On this site you will be able to view a list of transactions, make a new transaction, edit old transactions or delete them. I built this using Javascript, HTML, CSS, React, Express and Bootstrap. If you enjoyed my app feel free to reach out!

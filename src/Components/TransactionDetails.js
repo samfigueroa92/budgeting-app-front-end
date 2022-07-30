@@ -31,7 +31,7 @@ const TransactionDetails = () => {
             <p>From: {transaction.from}</p>
             <p>Category: {transaction.category}</p>
             <Link to={"/transactions"}>
-            <Button variant="dark" type="submit">Back</Button>
+            <Button variant="dark" type="submit" className="custom-btn">Back</Button>
             </Link>
             <Link to={`/transactions/${index}/edit`}>
             <Button variant="dark" type="submit">Edit</Button>
